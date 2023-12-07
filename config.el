@@ -31,20 +31,17 @@
 ;; refresh your font settings. If Emacs still can't find your font, it likely
 ;; wasn't installed correctly. Font issues are rarely Doom issues!
 
-
-;; banner
-(defun empty-string ()
-  "")
-(setq +doom-dashboard-ascii-banner-fn #'empty-string)
-
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-opera
+      doom-themes-enable-bold t
+      doom-themes-enable-italic t
       doom-font                   (font-spec :family "Operator Mono X" :size 14)
       doom-big-font               (font-spec :family "BerkeleyMonoVariable Nerd Font Mono" :size 18)
       doom-variable-pitch-font (font-spec :family "BerkeleyMonoVariable Nerd Font Mono" :size 14)
       )
+
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -98,3 +95,9 @@
 ;;   (setq-local default-text-properties '(line-spacing 1.3 line-height 1.3)))
 ;; (add-hook 'text-mode-hook 'set-bigger-spacing)
 ;; (add-hook 'prog-mode-hook 'set-bigger-spacing)
+
+(add-hook! 'doom-load-theme-hook
+  (after! treemacs
+    (set-face-attribute 'treemacs-root-face nil :height 1.0 :slant 'italic)
+    (set-face-attribute 'treemacs-window-background-face nil :background (face-background 'default) :foreground (face-foreground 'lazy-highlight))
+    ))
