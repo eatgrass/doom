@@ -40,6 +40,9 @@
       doom-font                   (font-spec :family "Operator Mono X" :size 14)
       doom-big-font               (font-spec :family "BerkeleyMonoVariable Nerd Font Mono" :size 18)
       doom-variable-pitch-font (font-spec :family "BerkeleyMonoVariable Nerd Font Mono" :size 14)
+      git-gutter:modified-sign "▎"
+      git-gutter:added-sign "▎"    ;; multiple character is OK
+      git-gutter:deleted-sign "▎"
       )
 
 
@@ -91,13 +94,25 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 ;;
-;; (defun set-bigger-spacing ()
-;;   (setq-local default-text-properties '(line-spacing 1.3 line-height 1.3)))
-;; (add-hook 'text-mode-hook 'set-bigger-spacing)
-;; (add-hook 'prog-mode-hook 'set-bigger-spacing)
+(defun set-bigger-spacing ()
+  (setq-local default-text-properties '(line-spacing 0.3 line-height 1.3)))
+(add-hook 'text-mode-hook 'set-bigger-spacing)
+(add-hook 'prog-mode-hook 'set-bigger-spacing)
+(add-hook 'doc-view-mode-hook 'set-bigger-spacing)
 
 (add-hook! 'doom-load-theme-hook
   (after! treemacs
     (set-face-attribute 'treemacs-root-face nil :height 1.0 :slant 'italic)
     (set-face-attribute 'treemacs-window-background-face nil :background (face-background 'default) :foreground (face-foreground 'lazy-highlight))
     ))
+
+(use-package git-gutter
+  :hook (prog-mode . git-gutter-mode)
+  :config
+  (setq git-gutter:update-interval 0.02))
+
+(use-package git-gutter-fringe
+  :config
+  (define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated))
+  (define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
+  (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
