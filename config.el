@@ -1,5 +1,11 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
-
+;;;
+;;;full screen
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
+(menu-bar-mode -1)
+(toggle-scroll-bar -1)
+(tool-bar-mode -1)
+(setf (cdr (assq 'truncation fringe-indicator-alist)) '(nil nil))
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
@@ -43,6 +49,7 @@
       git-gutter:modified-sign "▎"
       git-gutter:added-sign "▎"    ;; multiple character is OK
       git-gutter:deleted-sign "▎"
+      default-text-properties '(line-spacing 0.3 line-height 1.3)
       )
 
 
@@ -94,11 +101,15 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 ;;
-(defun set-bigger-spacing ()
-  (setq-local default-text-properties '(line-spacing 0.3 line-height 1.3)))
-(add-hook 'text-mode-hook 'set-bigger-spacing)
-(add-hook 'prog-mode-hook 'set-bigger-spacing)
-(add-hook 'doc-view-mode-hook 'set-bigger-spacing)
+;; (defun set-bigger-spacing ()
+;;   (setq-local default-text-properties '(line-spacing 0.3 line-height 1.3)))
+;; (add-hook 'text-mode-hook 'set-bigger-spacing)
+;; (add-hook 'prog-mode-hook 'set-bigger-spacing)
+;; (add-hook 'doc-view-mode-hook 'set-bigger-spacing)
+;; (setq-default line-spacing 0.3)
+;; (setq-default line-height 1.3)
+;; (add-text-properties (point-min) (point-max)
+;;                      '(line-spacing 0.25 line-height 1.25))
 
 (add-hook! 'doom-load-theme-hook
   (after! treemacs
